@@ -1,26 +1,16 @@
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
+import { UserService } from './user.service.js';
 
 
 @Controller('user')
 export class UserController {
+    constructor(private readonly userService:UserService){}
     // GET /user
     @Get()
-    getUsers(@Query('name') name: string) {
-        const users = [
-            { id: 1, name: 'John Doe' },
-            { id: 2, name: 'Emmy' },
-            { id: 3, name: 'Timo' },
-            { id: 4, name: 'Moe' },
-        ];
-
-        if (name) {
-            return users.filter((user) =>
-                user.name.toLowerCase().includes(name.toLowerCase()),
-            );
-        }
-        return users;
+    getUsers(@Query('name') name: string):unknown {
+        return this.userService.findAllUsers(name);
     }
     //GET /user/:id
     @Get(':id')

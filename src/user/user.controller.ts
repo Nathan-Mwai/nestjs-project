@@ -15,7 +15,7 @@ export class UserController {
     //GET /user/:id
     @Get(':id')
     getUserById(@Param('id') id: number):unknown {
-        return this.userService.findOneUser(id)
+        return this.userService.findOneUser(Number(id))
     }
 
     @Post()

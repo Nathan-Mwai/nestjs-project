@@ -26,7 +26,7 @@ export class UserService {
 
     findOneUser(id:number){
         this.logger.log(`Getting user with id ${id}`)
-        return this.users.find((user)=>user.id===Number(id));
+        return this.users.find((user)=>user.id===id);
     }
 
     createUser(dto:CreateUserDto){

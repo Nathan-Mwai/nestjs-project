@@ -31,22 +31,33 @@ export class UserService {
 
     createUser(dto:CreateUserDto){
         this.logger.log('Creating a new User...')
-        return {
-            data: dto,
-            message:'User Created Successfully'
+
+        const newUser:User ={
+            id:this.users.length + 1,
+            email:"",
+            ...dto
         }
+        this.users.push(newUser)
+        return newUser
     }
 
     updateUser(id:number, dto:UpdateUserDto){
         this.logger.log('Updating User...')
-        return {
-             data: {id, ...dto},
-            message:'User Updated Successfully'
-        }
+
+        const index = this.users.findIndex((user)=> user.id === id);
+
+        if(index === -1) return null
+        this.users[index] = { ...this.users[index], ...dto}
+        return this.users[index]
     }
 
     deleteUser(id:number){
-        this.logger.log(`Deleting user with id ${id}`)
-        return this.users.find((user)=>user.id===Number(id));
+        const index = this.users.findIndex((user)=> user.id === id);
+
+        if(index === -1) return null
+
+        const [deleted] = this.users.splice(index, 1)
+
+        return deleted
     }
 }

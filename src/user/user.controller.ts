@@ -31,6 +31,6 @@ export class UserController {
 
     @Delete(':id')
     deleteUserById(@Param('id') id: number):unknown {
-        return this.userService.deleteUser(id)
+        return this.userService.deleteUser(Number(id))
     }
 }

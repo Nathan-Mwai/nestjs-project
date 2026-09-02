@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post, Put, Query,Delete, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query,Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UserService } from './user.service.js';
+import { RoleGuard } from '../guards/role.guard.js';
 
 
 @Controller('user')
@@ -30,6 +31,7 @@ export class UserController {
     }
 
     @Delete(':id')
+    @UseGuards(RoleGuard)
     deleteUserById(@Param('id', ParseIntPipe) id: number):unknown {
         return this.userService.deleteUser(id)
     }

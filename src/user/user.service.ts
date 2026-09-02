@@ -38,7 +38,6 @@ export class UserService {
 
         const newUser:User ={
             id:this.users.length + 1,
-            email:"",
             ...dto
         }
         this.users.push(newUser)
